@@ -22,6 +22,8 @@
 #include <AQSplitter.h>
 #include <AQApplication.h>
 
+#include <cstring>
+
 AQFileDialog::AQFileDialog(UWORD features, AQWidget *parent)
    : AQWidget(parent)
    , m_selectName(nullptr)

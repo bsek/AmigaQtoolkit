@@ -9,11 +9,13 @@
 #include <devices/inputevent.h>
 #include <utility/hooks.h>
 
+
 #include <proto/exec.h>
 #include <proto/graphics.h>
 #include <proto/intuition.h>
 #include <proto/gadtools.h>
 #include <proto/layers.h>
+#include <proto/alib.h>
 
 #include <AQApplication.h>
 #include <AQWidget.h>
@@ -24,7 +26,7 @@ void backfill()
 
 }
 
-Hook refreshHook;
+struct Hook refreshHook;
 
 AQWindow::AQWindow(AQWidget *widget, int modality, ULONG flags)
    : m_window(nullptr)
@@ -36,7 +38,8 @@ AQWindow::AQWindow(AQWidget *widget, int modality, ULONG flags)
    , m_dirtyRegion(NewRegion())
    , m_screen(aqApp->screen(widget))
 {
-   refreshHook.h_Entry = (ULONG (*)() )backfill;
+   refreshHook.h_Entry = (APTR) HookEntry;
+   refreshHook.h_SubEntry = (APTR) backfill;
 
    if (flags & Popup)
       aqApp->registerPopupWindow(this);
@@ -71,19 +74,19 @@ AQWindow::AQWindow(AQWidget *widget, int modality, ULONG flags)
    WA_Top, widget->pos().y,
    WA_Activate, m_active,
    WA_Flags, WFLG_RMBTRAP | borderflag,
-   (flags & AQWindow::TitleBar ? WA_Title : TAG_SKIP), (ULONG)(char *)m_widget->m_title,
+   (flags & AQWindow::TitleBar ? WA_Title : TAG_SKIP), (IPTR)(char*)m_widget->m_title,
    WA_SimpleRefresh, TRUE,
    WA_MinWidth, 15,
    WA_MinHeight, 15,
    WA_ReportMouse, TRUE,
    WA_NewLookMenus, TRUE,
-   WA_CustomScreen, (ULONG)m_screen->m_screen,
-   WA_BackFill, (ULONG)&refreshHook,
+   WA_CustomScreen, m_screen->m_screen,
+   WA_BackFill, &refreshHook,
    TAG_DONE, 0L);
    
    m_window->UserPort = aqApp->userPort();
 
-   ModifyIDCMP(m_window, CLOSEWINDOW | IDCMP_VANILLAKEY | IDCMP_RAWKEY
+   ModifyIDCMP(m_window, IDCMP_CLOSEWINDOW | IDCMP_VANILLAKEY | IDCMP_RAWKEY
     | IDCMP_REFRESHWINDOW | IDCMP_MOUSEBUTTONS | IDCMP_MOUSEMOVE
     | IDCMP_ACTIVEWINDOW | IDCMP_INACTIVEWINDOW
        | IDCMP_INTUITICKS | IDCMP_CHANGEWINDOW);
@@ -219,7 +222,7 @@ void AQWindow::event(IntuiMessage &msg)
    }
    
    switch (msg.Class) {
-   case MENUPICK:
+   case IDCMP_MENUPICK:
       // transform and make menuitems emit;
       break;
 
@@ -341,7 +344,7 @@ void AQWindow::event(IntuiMessage &msg)
       paintAll();
       break;
     
-   case CLOSEWINDOW:
+   case IDCMP_CLOSEWINDOW:
       if (aqApp->isWindowBlocked(this))
          return;
 

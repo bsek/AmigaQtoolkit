@@ -2,7 +2,7 @@
 #define AQTABBAR_H
 
 #include <AQWidget.h>
-#include <vector.h>
+#include <vector>
 
 class AQLayout;
 class AQButton;
@@ -29,7 +29,7 @@ private:
 
    AQLayout *m_layout;
 
-   vector<AQButton *> m_tabs;
+   std::vector<AQButton *> m_tabs;
 };
    
 #endif

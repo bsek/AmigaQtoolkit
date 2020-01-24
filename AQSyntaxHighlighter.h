@@ -1,7 +1,7 @@
 #ifndef AQSYNTAXHIGHLIGHTER_H
 #define AQSYNTAXHIGHLIGHTER_H
 
-#include <vector.h>
+#include <vector>
 
 #include <AQKernel.h>
 #include <AQObject.h>
@@ -21,7 +21,7 @@ protected:
    virtual void highlightBlock(const AQString &text);
    void setFormat(int start, int count, int color);
 
-   void addKeyWord(char *keyword, int color, int appendNonWord = false);
+   void addKeyWord(const char *keyword, int color, int appendNonWord = false);
 
 
 private:

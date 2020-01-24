@@ -1,7 +1,7 @@
 #ifndef AQAPPLICATION_H
 #define AQAPPLICATION_H
 
-#include <vector.h>
+#include <vector>
 
 #include <AQObject.h>
 
@@ -17,7 +17,7 @@ class AQString;
 class AQClipboard;
 class AQAction;
 
-typedef long BPTR;
+//typedef long BPTR;
 
 struct Screen;
 struct DrawInfo;
@@ -85,10 +85,10 @@ protected:
    void setHoveredWidget(AQWidget *w);
 
 private:
-   vector<AQWindow *>m_windows;
-   vector<AQWindow *>m_modalWindows;
-   vector<AQWindow *>m_popupWindows;
-   vector<AQAction *>m_actions;
+   std::vector<AQWindow *>m_windows;
+   std::vector<AQWindow *>m_modalWindows;
+   std::vector<AQWindow *>m_popupWindows;
+   std::vector<AQAction *>m_actions;
    bool m_closing;
    AQWidget *m_focusWidget;
    AQWidget *m_hoveredWidget;

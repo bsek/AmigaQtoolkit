@@ -1,5 +1,5 @@
 #include <AQString.h>
-#include <vector.h>
+#include <vector>
 
 class Project
 {
@@ -21,7 +21,7 @@ public:
 private:
    void loadMakefile();
 
-   vector<AQString> m_files;
+   std::vector<AQString> m_files;
    AQString m_projectPath;
    AQString m_configuration;
    AQString m_projectName;

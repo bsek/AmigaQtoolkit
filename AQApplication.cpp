@@ -233,11 +233,11 @@ AQApplication::AQApplication()
    , m_clipboard(new AQClipboard)
 {
    // Open all libraries:
-   GfxBase = (struct GfxBase *) OpenLibrary((UBYTE*)"graphics.library", 39L);
-   IntuitionBase = (struct IntuitionBase *) OpenLibrary((UBYTE*)"intuition.library", 39L);
-   LayersBase = OpenLibrary((UBYTE*)"layers.library", 39L);
-   DOSBase = (struct DosLibrary *)OpenLibrary((UBYTE*)"dos.library", 39L);
-   IconBase = OpenLibrary((UBYTE*)"icon.library", 39L);
+   GfxBase = (struct GfxBase *) OpenLibrary("graphics.library", 39L);
+   IntuitionBase = (struct IntuitionBase *) OpenLibrary("intuition.library", 39L);
+   LayersBase = OpenLibrary("layers.library", 39L);
+   DOSBase = (struct DosLibrary *)OpenLibrary("dos.library", 39L);
+   IconBase = OpenLibrary("icon.library", 39L);
 
    if (LayersBase == nullptr)
       exit(20);
@@ -282,8 +282,8 @@ void AQApplication::startAsyncRead(BPTR file, char *buffer, int size)
 
          packet->dp_Type = ACTION_READ;
          packet->dp_Arg1 = fh->fh_Arg1;
-         packet->dp_Arg2 = (LONG)buffer;
-         packet->dp_Arg3 = (LONG)size;
+         packet->dp_Arg2 = (IPTR)buffer;
+         packet->dp_Arg3 = (IPTR)size;
          PutMsg (fh->fh_Type,packet->dp_Link);
       }
    }

@@ -36,9 +36,9 @@ private:
    void sendFakeMouseMove(bool holdBehaviour);
    void effectuate();
 
-   vector<int> m_entryType;
-   vector<AQMenu *> m_entryMenu;
-   vector<AQAction *> m_entryAction;
+   std::vector<int> m_entryType;
+   std::vector<AQMenu *> m_entryMenu;
+   std::vector<AQAction *> m_entryAction;
    int m_hoveredItem;
    bool m_execed;
    bool m_firstUpReceived;

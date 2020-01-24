@@ -408,7 +408,7 @@ void DevStudio::openFile()
    dialog->setWindowTitle("Open File");
 
    // Let's figure out what folder to start dialog in
-   map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
+   std::map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
    while (it != m_loadedDocs.end()) {
       if (it->second->doc == m_textEdit->document()) {
          dialog->setDrawer(qCdUp(it->first));
@@ -442,7 +442,7 @@ void DevStudio::openFile(const AQString &path)
 
 void DevStudio::closeFile()
 {
-   map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
+   std::map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
    while (it != m_loadedDocs.end()) {
       if (it->second == m_currentDoc) {
          closeFile(it->first);
@@ -454,7 +454,7 @@ void DevStudio::closeFile()
 
 void DevStudio::closeFile(const AQString &path)
 {
-   map<AQString, DocInfo *>::iterator it = m_loadedDocs.find(path);
+   std::map<AQString, DocInfo *>::iterator it = m_loadedDocs.find(path);
    if (it == m_loadedDocs.end())
       return;
 
@@ -514,7 +514,7 @@ void DevStudio::gotoLine(int n)
 
 void DevStudio::saveFile()
 {
-   map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
+   std::map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
    while (it != m_loadedDocs.end()) {
       if (it->second->doc == m_textEdit->document()) {
          it->second->doc->saveFile(it->first);
@@ -533,7 +533,7 @@ void DevStudio::saveFileAs()
    dialog->setWindowTitle("Save File As");
 
    // Let's figure out what folder to start dialog in
-   map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
+   std::map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
    while (it != m_loadedDocs.end()) {
       if (it->second->doc == m_textEdit->document()) {
          dialog->setDrawer(qCdUp(it->first));
@@ -552,7 +552,7 @@ void DevStudio::saveFileAs()
 
 void DevStudio::saveAll()
 {
-   map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
+   std::map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
    AQString filename;
    while (it != m_loadedDocs.end()) {
       if (!it->second->commandStack->isClean())
@@ -655,7 +655,7 @@ void DevStudio::onTabCloseRequest(int i)
 
 void DevStudio::onDocModificationChanged(AQObject *obj)
 {
-   map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
+   std::map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
    AQString filename;
    while (it != m_loadedDocs.end()) {
       if (it->second->doc == obj) {
@@ -674,7 +674,7 @@ void DevStudio::onCursorPositionChanged(AQObject *obj)
    }
 
    AQTextDoc *doc = static_cast<AQTextDoc *>(obj);
-   map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
+   std::map<AQString, DocInfo *>::iterator it = m_loadedDocs.begin();
 
    while (it != m_loadedDocs.end()) {
       if (it->second->doc == doc) {

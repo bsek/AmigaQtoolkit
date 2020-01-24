@@ -4,7 +4,7 @@
 #include <AQWidget.h>
 #include <AQKernel.h>
 #include <AQIcon.h>
-#include <vector.h>
+#include <vector>
 
 class AQScrollBar;
 class AQListView;
@@ -40,7 +40,7 @@ public:
    int expanderPolicy() const;
 
 private:
-   vector<AQListItem *> m_children;
+   std::vector<AQListItem *> m_children;
    AQListItem *m_parentItem;
    AQListView *m_listView;
    bool m_expanded;
@@ -73,7 +73,7 @@ public:
    AQListItem *itemBelow(const AQListItem *item) const;
 
    void selectItem(AQListItem *item);
-   vector<AQListItem *> selectedItems() const;
+   std::vector<AQListItem *> selectedItems() const;
    void clear();
 
 protected:

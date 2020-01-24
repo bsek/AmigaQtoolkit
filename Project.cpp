@@ -1,10 +1,8 @@
 #include <proto/dos.h>
-#include <dos/dostags.h>
 
 #include "Project.h"
 
-
-#include <stdio.h>
+#include <cstring>
 
 Project::Project(const AQString &projectPath)
    : m_projectPath(projectPath)
@@ -39,7 +37,7 @@ void Project::loadMakefile()
    makefilePath += "/makefile";
    
    BPTR file =  Open(makefilePath, MODE_OLDFILE);
-   if (file == -1)
+   if (file)
       return;
    
    char *s;
@@ -91,7 +89,7 @@ AQString Project::projectPath() const
 
 int Project::filesCount() const
 {
-   m_files.size();
+   return m_files.size();
 }
 
 AQString Project::filename(int index)

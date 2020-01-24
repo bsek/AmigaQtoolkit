@@ -6,6 +6,8 @@
 #include <devices/clipboard.h>
 
 #include <proto/exec.h>
+#include <utility/hooks.h>
+#include <clib/alib_protos.h>
 
 #define MAKE_ID(a,b,c,d) ((a<<24L) | (b<<16L) | (c<<8L) | d)
 
@@ -168,7 +170,7 @@ public:
 
 static int reports=0;
 
-ULONG clipChangedHookEntry()
+void clipChangedHookEntry()
 {
    ++reports;
 }
@@ -180,7 +182,7 @@ AQClipboard::AQClipboard()
    const int unit = 0;
    if (m_d->mp = CreatePort(0L,0))
       if (m_d->ior = (IOClipReq *)CreateExtIO(m_d->mp,sizeof(struct IOClipReq)))
-          OpenDevice((UBYTE *)"clipboard.device", unit, (IORequest *)m_d->ior, 0L);
+          OpenDevice((CONST_STRPTR)"clipboard.device", unit, (IORequest *)m_d->ior, 0L);
 
     // Setup the clip hook
     m_d->ior->io_Data = (char *) &m_d->hook;
@@ -189,7 +191,7 @@ AQClipboard::AQClipboard()
 
     m_d->task = FindTask (NULL);
 
-    m_d->hook.h_Entry = clipChangedHookEntry;
+    m_d->hook.h_Entry = (APTR)clipChangedHookEntry;
     m_d->hook.h_SubEntry = nullptr;
     m_d->hook.h_Data = m_d;
 

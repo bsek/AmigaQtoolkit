@@ -49,7 +49,7 @@ public:
 class InsertCommand : public TextCommandBase
 {
 public:
-   InsertCommand(AQTextDoc *doc, int pos, int n, char *data)
+   InsertCommand(AQTextDoc *doc, int pos, int n, const char *data)
       : m_doc(doc)
       , m_pos(pos)
       , m_n(n)
@@ -814,7 +814,7 @@ void AQTextDoc::loadFile(const AQString &fileName)
 bool AQTextDoc::saveFile(const AQString &fileName) const
 {
    BPTR file =  Open(fileName, MODE_NEWFILE);
-   if (file == -1)
+   if (file)
       return false;
 
    bool success = m_size == Write(file, m_data, m_size);
@@ -993,7 +993,7 @@ AQTextBlock AQTextDoc::findBlockByLineNumber(int line) const
 }
 
 
-void AQTextDoc::pushData(int pos, int n, char *chars, bool createCommand)
+void AQTextDoc::pushData(int pos, int n, const char *chars, bool createCommand)
 {
    InsertCommand *cmd = nullptr;
 

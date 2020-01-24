@@ -307,9 +307,9 @@ void AQListView::selectItem(AQListItem *item)
    update();
 }
 
-vector<AQListItem *> AQListView::selectedItems() const
+std::vector<AQListItem *> AQListView::selectedItems() const
 {
-   vector<AQListItem*> res;
+   std::vector<AQListItem*> res;
 
    if (m_selectedItem)
       res.push_back(m_selectedItem);

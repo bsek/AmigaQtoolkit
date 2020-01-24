@@ -7,7 +7,7 @@
 #include <ctype.h>
 #include <stdio.h>
 
-char *keywords[] = {"alignas"
+const char *keywords[] = {"alignas"
  , "alignof"
  , "and"
  , "and_eq"
@@ -128,7 +128,7 @@ struct CharState
       return false;
    }
    char symbol;
-   vector<CharState *> nexts;
+   std::vector<CharState *> nexts;
    int color;
    bool terminal;
    bool repeating;
@@ -214,9 +214,9 @@ void AQSyntaxHighlighter::setBlockNumber(int b)
    m_blockNumber = b;
 }
 
-void AQSyntaxHighlighter::addKeyWord(char *keyword, int color, int boundNonWord)
+void AQSyntaxHighlighter::addKeyWord(const char *keyword, int color, int boundNonWord)
 {
-   char *ptr = keyword;
+   const char *ptr = keyword;
    CharState *state = boundNonWord ? m_nonWordState : m_defaultState;
    while (*ptr) {
       int i = 0;

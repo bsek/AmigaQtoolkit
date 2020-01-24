@@ -1,7 +1,7 @@
 #ifndef AQOBJECT_H
 #define AQOBJECT_H
 
-#include <vector.h>
+#include <vector>
 
 #include <AQString.h>
 
@@ -201,10 +201,10 @@ private:
    void registerConnection(ConnectionBase *cb);
    void unregisterConnection(const ConnectionBase &cb);
    
-   vector<ConnectionBase *> m_connections;
+   std::vector<ConnectionBase *> m_connections;
 
    AQObject *m_parent;
-   vector<AQObject *> m_children;
+   std::vector<AQObject *> m_children;
 };
 
 #endif

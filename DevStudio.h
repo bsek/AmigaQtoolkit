@@ -1,8 +1,8 @@
 #ifndef ADS_H
 #define ADS_H
 
-#include <map.h>
-#include <vector.h>
+#include <map>
+#include <vector>
 #include <AQMainWindow.h>
 #include <AQString.h>
 
@@ -16,7 +16,7 @@ class DocInfo;
 class FindWidget;
 class AQTabBar;
 
-typedef long BPTR;
+//typedef long BPTR;
 
 class DevStudio : public AQMainWindow
 {
@@ -71,7 +71,7 @@ private:
    FindWidget *m_findWidget;
 
    Project *m_project;
-   map<AQString, DocInfo *> m_loadedDocs;
+   std::map<AQString, DocInfo *> m_loadedDocs;
    DocInfo *m_currentDoc;
    BPTR m_pipeFh;
    char *m_pipeBuffer;

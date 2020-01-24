@@ -1,5 +1,5 @@
 #include <AQWidget.h>
-#include <vector.h>
+#include <vector>
 
 class AQLayout;
 class AQTextEdit;
@@ -48,7 +48,7 @@ private:
   
    AQTextDoc *m_doc;
    AQTextCursor *m_caret;
-   vector<AQTextCursor *> m_findResults;
+   std::vector<AQTextCursor *> m_findResults;
    AQTextEdit *m_textEdit;
    int m_findFlag;
    int m_posWhenStart;

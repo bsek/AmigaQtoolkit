@@ -4,7 +4,7 @@
 #include <AQObject.h>
 #include <AQString.h>
 #include <AQCommand.h>
-#include <vector.h>
+#include <vector>
 
 class AQCommandStack : public AQObject
 {
@@ -27,8 +27,8 @@ public:
    AQString redoText() const;
 
 private:
-   vector<AQCommand *> m_doneCommands;
-   vector<AQCommand *> m_undoneCommands;
+   std::vector<AQCommand *> m_doneCommands;
+   std::vector<AQCommand *> m_undoneCommands;
 
    int m_cleanIndex;
 };

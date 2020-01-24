@@ -1,7 +1,7 @@
 #ifndef AQTEXTDOC_H
 #define AQTEXTDOC_H
 
-#include <vector.h>
+#include <vector>
 
 #include <AQKernel.h>
 #include <AQObject.h>
@@ -79,7 +79,6 @@ public:
 
    friend class AQTextDoc;
 
-private:
    struct State
    {
       State() : pos(), posInBlock(0), wishX(0), anchorPos(0), anchorInBlock(0){}
@@ -90,6 +89,7 @@ private:
       int anchorInBlock;
    } m_state;
 
+private:
    void dataPushed(int pos, int n, TextCommandBase *cmd);
    void dataDeleted(int pos, int n, TextCommandBase *cmd);
    void restoreUndoneState(TextCommandBase *cmd);
@@ -157,7 +157,7 @@ private:
 
    void setLatestCommand(AQCommand *cmd);
 
-   void pushData(int pos, int n, char *chars, bool createCommand = true);
+   void pushData(int pos, int n, const char *chars, bool createCommand = true);
    void deleteData(int pos, int n, bool createCommand = true);
    void updateBlocks(int start, int delta);
 
@@ -171,7 +171,7 @@ private:
    char *m_data;
    unsigned long m_capacity;
    unsigned long m_size;
-   vector<AQTextCursor *>m_cursors;
+   std::vector<AQTextCursor *>m_cursors;
    int m_charWidth;
    AQCommand *m_latestCommand;
    TextFont *m_defaultFont;

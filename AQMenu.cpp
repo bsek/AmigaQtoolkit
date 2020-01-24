@@ -4,6 +4,8 @@
 #include <graphics/gfxbase.h>
 #include <intuition/intuitionbase.h>
 
+#include <exec/types.h>
+
 #include <proto/graphics.h>
 
 #include <AQApplication.h>
@@ -13,6 +15,8 @@
 #include <AQIcon.h>
 
 #include <stdio.h>
+
+#define USHORT UWORD
 
 extern struct IntuitionBase *IntuitionBase;
 
@@ -140,7 +144,7 @@ void AQMenu::updateSize()
          AQString text = m_entryMenu[i]->m_title;
          width = aqMax(14 + TextLength(&rp, text, text.size()), width);
 
-         AQString scText = "»";
+         AQString scText = "ï¿½";
          scWidth = aqMax(TextLength(&rp, scText, scText.size()), scWidth);
 
          height += rp.TxHeight + 2;
@@ -213,13 +217,14 @@ void AQMenu::paintEvent(RastPort *rp, const AQRect &rect)
             state = 2;
          }
 
-         if (m_entryAction[i]->isCheckable()) {
-            if (m_entryAction[i]->isChecked()) {
-               AQIcon i(m_entryAction[i]->isMutexed() ? "bullet" : "checkmark");
-               i.paint(rp, AQPoint(6,y -rp->TxBaseline), AQIcon::Small, state);
-            }
-            Move(rp, 6 + 16, y);
-         }
+          if (m_entryAction[i]->isCheckable()) {
+              if (m_entryAction[i]->isChecked()) {
+                  const char *isMutexed = m_entryAction[i]->isMutexed() ? "bullet" : "checkmark";
+                  AQIcon i(isMutexed);
+                  i.paint(rp, AQPoint(6,y -rp->TxBaseline), AQIcon::Small, state);
+              }
+              Move(rp, 6 + 16, y);
+          }
 
          AQString text = m_entryAction[i]->text();
 
@@ -285,8 +290,8 @@ void AQMenu::paintEvent(RastPort *rp, const AQRect &rect)
 
             Text(rp, text, text.size());
 
-            Move(rp, right - 6 - TextLength(rp, "»", 1), y);
-            Text(rp, "»", 1);
+            Move(rp, right - 6 - TextLength(rp, "ï¿½", 1), y);
+            Text(rp, "ï¿½", 1);
 
             y += rp->TxHeight + 2;
          }

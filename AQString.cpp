@@ -196,7 +196,7 @@ AQString AQString::right(int n) const
 
 const int maxdigits[36] = {31,15,15,9,9,9,7,9,9,8,8,8,8,8,7,7,7};
 
-int AQString::toInt(bool *ok = nullptr, int base=10) const
+int AQString::toInt(bool *ok, int base) const
 {
    if (ok)
       *ok = false;

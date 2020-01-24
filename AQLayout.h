@@ -73,7 +73,7 @@ public:
    void invalidate();
 
 private:
-   vector<AQLayoutItem *> m_items;
+   std::vector<AQLayoutItem *> m_items;
    bool m_horiz;
    bool m_hasCachedMin;
    bool m_hasCachedPref;

@@ -2,6 +2,7 @@
 #define AQKERNEL_H
 
 #include <sstream>
+#include <iostream>
 
 #define nullptr 0
 

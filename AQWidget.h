@@ -1,7 +1,7 @@
 #ifndef AQWIDGET_H
 #define AQWIDGET_H
 
-#include <vector.h>
+#include <vector>
 
 #include <graphics/gfx.h>
 #include <intuition/intuition.h>
@@ -52,7 +52,7 @@ public:
    void grabMouse();
    void releaseMouse();
 
-   const vector<class AQWidget *> &children() const;
+   const std::vector<class AQWidget *> &children() const;
 
    int bgPen() const;
    void setBgPen(int pen);
@@ -191,8 +191,8 @@ private:
    AQString m_toolTip;
 
    AQLayout *m_layout;
-   vector<AQWidget *> m_children;
-   vector<AQAction *> m_actions;
+   std::vector<AQWidget *> m_children;
+   std::vector<AQAction *> m_actions;
    AQWidget *m_parent;
    AQWidget *m_focusChild;
    AQWindow *m_window;

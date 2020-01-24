@@ -363,7 +363,7 @@ AQWidget *AQWidget::parent()
    return m_parent;
 }
 
-const vector<class AQWidget *> &AQWidget::children() const
+const std::vector<class AQWidget *> &AQWidget::children() const
 {
    return m_children;
 }
@@ -375,7 +375,7 @@ void AQWidget::pushClipRect(RastPort *rp, const AQRect &r)
    WORD sx = rp->Layer->Scroll_X;
    WORD sy = rp->Layer->Scroll_Y;
 
-   Rectangle rectangle = {r.topLeft.x - sx, r.topLeft.y - sy,
+   Rectangle rectangle = {(WORD)r.topLeft.x - sx, r.topLeft.y - sy,
                              r.bottomRight.x - sx, r.bottomRight.y - sy};
    
 
