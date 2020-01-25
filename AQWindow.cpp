@@ -48,12 +48,12 @@ AQWindow::AQWindow(AQWidget *widget, int modality, ULONG flags)
    else
       aqApp->registerWindow(this);
 
+   m_titleHeight = m_screen->m_screen->BarHeight;
+
    if (m_flags & (TitleBar | CloseButton)) {
       m_border = AQPoint(4,2);//(4, 3);
-      m_titleHeight = m_screen->m_drawInfo->dri_Font->tf_YSize + 2;
    } else  {
       m_border = AQPoint(0,0);
-      m_titleHeight = 0;
    }
 
    AQPoint prefSize = widget->preferredSize() + m_border + m_border;
@@ -385,12 +385,14 @@ void AQWindow::paintWidget(AQWidget *w, RastPort *rp, AQRect rect, int winBg)
       }
    }
 
+   printf("Rect: %d, %d, %d, %d\n", clip.topLeft.x, clip.topLeft.y, clip.bottomRight.x, clip.bottomRight.y);
+
    if (winBg >= 0) {
       SetAPen(rp, winBg);
       RectFill(rp, clip.topLeft.x, clip.topLeft.y, clip.bottomRight.x, clip.bottomRight.y);
       winBg = -1; // mark we have painted the background
    }
-   
+
    w->paintEvent(rp, clip);
 
    // now paint children
@@ -411,10 +413,10 @@ void AQWindow::paintDirty()
 
    RastPort *rp = m_window->RPort;
 
-   AQPoint pos(m_window->LeftEdge, m_window->TopEdge);
+   AQPoint pos(m_window->LeftEdge + m_window->BorderLeft, m_window->TopEdge + m_window->BorderTop);
    pos -= m_clientPos;
    // offset painting by calling ScrollLayer (misnomer but it works as an offset for Gfx)
-   ScrollLayer(0, rp->Layer, pos.x, pos.y);
+ //  ScrollLayer(0, rp->Layer, pos.x, pos.y);
 
    RegionRectangle *reg = m_dirtyRegion->RegionRectangle;
 
@@ -482,7 +484,6 @@ void AQWindow::paintBorder()
    RefreshWindowFrame(m_window);
 
    m_window->Flags = old;
-
 
    RastPort *rp = m_window->RPort;
    WORD h = m_window->Height - 1;

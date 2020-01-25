@@ -8,8 +8,12 @@ extern "C" int main(int argc, char **argv)
 {
    AQApplication app;
 
-   DevStudio *devStudio = new DevStudio;
-   devStudio->show();
+ //  DevStudio *devStudio = new DevStudio;
+ //  devStudio->show();
+
+   AQMainWindow *mainWindow = new AQMainWindow;
+   asm("int 3");
+   mainWindow->show();
 
    app.exec();
 
